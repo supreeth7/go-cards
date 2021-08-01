@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"math/rand"
 	"strings"
+	"time"
 )
 
 // Create a new deck type
@@ -37,6 +39,16 @@ func (d deck) print() {
 // Return Values - deck 1: deck in hand of size handSize, deck 2: remaining cards in the deck
 func deal(d deck, handSize int) (deck, deck) {
 	return d[:handSize], d[handSize:]
+}
+
+// Randomizes the slice order in a deck of cards
+func (d deck) shuffle() {
+	rand.Seed(time.Now().UnixNano())
+
+	for i := range d {
+		swapPos := rand.Intn(len(d) - 1)
+		d[i], d[swapPos] = d[swapPos], d[i]
+	}
 }
 
 // Converts a deck into a continuous comma separated string
