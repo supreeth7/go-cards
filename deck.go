@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"log"
 	"strings"
 )
 
@@ -46,4 +47,19 @@ func (d deck) toString() string {
 // Save the deck string to a user defined file
 func (d deck) saveToFile(fileName string) error {
 	return ioutil.WriteFile(fileName, []byte(d.toString()), 0776)
+}
+
+// Read string from a file and convert it to a deck
+func getDeckFromFile(fileName string) deck {
+	bytes, err := ioutil.ReadFile(fileName)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	deckString := string(bytes)
+
+	deckSlice := strings.Split(deckString, ",")
+
+	return deck(deckSlice)
 }
