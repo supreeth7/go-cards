@@ -1,8 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"log"
+)
 
 func main() {
 	cards := newDeck()
-	fmt.Println(cards.toString())
+	err := cards.saveToFile("myFile")
+	if err != nil {
+		log.Fatal(err)
+	}
 }

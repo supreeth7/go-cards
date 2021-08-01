@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"strings"
 )
 
@@ -37,7 +38,12 @@ func deal(d deck, handSize int) (deck, deck) {
 	return d[:handSize], d[handSize:]
 }
 
-// Converts a deck into a string
+// Converts a deck into a continuous comma separated string
 func (d deck) toString() string {
 	return strings.Join([]string(d), ",")
+}
+
+// Save the deck string to a user defined file
+func (d deck) saveToFile(fileName string) error {
+	return ioutil.WriteFile(fileName, []byte(d.toString()), 0776)
 }
