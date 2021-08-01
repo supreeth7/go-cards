@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
-	"log"
 	"math/rand"
 	"strings"
 	"time"
@@ -62,16 +61,16 @@ func (d deck) saveToFile(fileName string) error {
 }
 
 // Read string from a file and convert it to a deck
-func getDeckFromFile(fileName string) deck {
+func getDeckFromFile(fileName string) (deck, error) {
 	bytes, err := ioutil.ReadFile(fileName)
 
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	deckString := string(bytes)
 
 	deckSlice := strings.Split(deckString, ",")
 
-	return deck(deckSlice)
+	return deck(deckSlice), nil
 }
