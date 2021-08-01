@@ -28,6 +28,8 @@ func (d deck) print() {
 	}
 }
 
-func (d deck) deal(n int) deck {
-	return d[:n]
+// Returns two slices of deck with the given hand size
+// Return Values - deck 1: deck in hand of size handSize, deck 2: remaining cards in the deck
+func deal(d deck, handSize int) (deck, deck) {
+	return d[:handSize], d[handSize:]
 }
